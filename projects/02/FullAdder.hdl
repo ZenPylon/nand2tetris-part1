@@ -13,5 +13,14 @@ CHIP FullAdder {
         carry;   // Left bit of a + b + c
 
     PARTS:
-    // Put you code here:
+        // Sum = 1 only if one or three inputs have value 1
+        Xor(a=a, b=b, out=aXorB);
+        Xor(a=aXorB, b=c, out=sum);
+
+        // If two or more inputs have value=1
+        And(a=a, b=b, out=aAndB);
+        And(a=b, b=c, out=bAndC);
+        And(a=a, b=c, out=aAndC);
+        Or(a=aAndB, b=bAndC, out=orCombo);
+        Or(a=aAndC, b=orCombo, out=carry);
 }
